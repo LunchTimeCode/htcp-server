@@ -12,3 +12,10 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 colored = "2"
 anyhow= "1"
+lazy_static = "1"
+
+[workspace]
+
+members = [
+    "test_server",
+]

@@ -7,12 +7,11 @@ use axum::{
     extract,
     http::StatusCode,
     response::{IntoResponse, Response},
-    routing::post,
+    routing::{get, post},
     Json, Router,
 };
-use serde::{Deserialize, Serialize};
-
 use colored::Colorize;
+use serde::{Deserialize, Serialize};
 use tokio::net::TcpListener;
 
 use crate::client::ClientFactory;
@@ -49,7 +48,16 @@ impl ClientResponse {
 }
 
 fn make_api() -> Router<ClientFactory> {
-    Router::new().route("/test", post(test))
+    Router::new()
+        .route("/test", post(test))
+        .route("/healthz", get(healthz))
+}
+
+async fn healthz(extract::State(state): extract::State<ClientFactory>) -> Response {
+    let Ok(_) = state.create_stream().await else {
+        return StatusCode::FAILED_DEPENDENCY.into_response();
+    };
+    StatusCode::OK.into_response()
 }
 
 // which calls one of these handlers

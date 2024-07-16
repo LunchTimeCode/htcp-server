@@ -6,7 +6,7 @@ pub struct ClientFactory {
 }
 impl ClientFactory {
     pub fn new_from_env() -> Self {
-        let target_port: String = env::var("SERVER_PORT").unwrap_or("3001".to_string());
+        let target_port: String = env::var("CLIENT_PORT").unwrap_or("3001".to_string());
         let target_binding = format!("0.0.0.0:{}", target_port);
         println!("trying to connect to client at: {target_binding}");
         Self { target_binding }

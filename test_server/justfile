@@ -1,0 +1,12 @@
+set dotenv-load := true
+
+
+@_list:
+    just --list --unsorted
+
+run *args:
+    cargo run {{args}}
+
+[no-exit-message]
+@run-q *args:
+    cargo run {{args}}  2>&1
