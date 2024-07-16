@@ -22,5 +22,5 @@ jobs:
  
       - uses: taiki-e/install-action@v2
         with:
-          tool: just@1
+          tool: just@1, hurl@4
       - run: just verify   
